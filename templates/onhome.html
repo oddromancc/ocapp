@@ -12,6 +12,12 @@
             <form class="filter" method="post" id="aform">
                 <input class="btn" type="checkbox" name="resTags" aria-label="Flask" value="Flask">
                 <input class="btn" type="checkbox" name="resTags" aria-label="Docker" value="Docker">
+                <input class="btn" type="checkbox" name="resTags" aria-label="Django" value="Django">
+                <input class="btn" type="checkbox" name="resTags" aria-label="Git" value="Git">
+                <input class="btn" type="checkbox" name="resTags" aria-label="Dockersrts" value="Dockersrts">
+                <input class="btn" type="checkbox" name="resTags" aria-label="ARIA322222" value="ARIA322222">
+                <input class="btn" type="checkbox" name="resTags" aria-label="Flask22323" value="Flask22323">
+                <input class="btn" type="checkbox" name="resTags" aria-label="Docker" value="Docker">
                 <input class="btn" type="checkbox" name="resTags" aria-label="ARIA" value="ARIA">
                 <input class="btn btn-square" type="reset" value="x">
             </form>
@@ -42,11 +48,21 @@
     </div>
 </div>
 
-{% for g in gg %}
+{% for g in rescol %}
     <div class="card bg-base-100 shadow-sm">
         <div class="card-body">
-            <h2 class="card-title">HNSRS</h2>
-            <p>THDHJPGTDVKHBDLTHCsrhtnrbsnlurjnhbtlreh</p>
+            {% for q in g %}
+                <h2 class="card-title">{{ q[0] }}</h2>
+                <p>{{ q[1] }}</p>
+            {% endfor %}
+            <div class="card-actions">
+                <form method="post">
+                    <input type="hidden" name="resExp0" value="{{ g[2][1] }}">
+                    <input type="hidden" name="resTags0" value="{{ g[3][1] }}">
+                    <input type="hidden" name="resEd0" value="{{ g[4][1] }}">
+                    <button class="btn btn-primary mt-4">Подобрать вакансию</button>
+                </form>
+            </div>
         </div>
     </div>
 {% endfor %}

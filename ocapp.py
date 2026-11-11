@@ -1,30 +1,48 @@
-from flask import Flask, render_template, g, current_app, flash, request, redirect, url_for, send_file, session, send_from_directory
+from flask import Flask, render_template, g, current_app, flash, request, redirect, url_for, send_file, session
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
 
+rolecol = []
+rescol = []
+
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
-    gg = []
 
     if request.method == 'POST':
+        if 'resExp' in request.form:
             resTags = request.form.getlist('resTags')
             print(resTags)
-    
+
             resTitle = request.form['resTitle']
             resDesc = request.form['resDesc']
             resExp = request.form['resExp']
-            resTags = request.form['resTags']
             resEd = request.form['resEd']
 
             aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd)]
-            gg.append(aRes)
+            rescol.append(aRes)
             print(aRes)
+
+        if 'resExp1' in request.form:
+            pass
         
-    return render_template('onhome.html', gg=gg)
+    return render_template('onhome.html', rescol=rescol)
 
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
-    gg = [1, 2, 3]
 
-    return render_template('onjobs.html', gg=gg)
+    if request.method == 'POST':
+        roleTags = request.form.getlist('roleTags')
+        print(roleTags)
+
+        roleTitle = request.form['roleTitle']
+        roleDesc = request.form['roleDesc']
+        roleExp = request.form['roleExp']
+        roleEd = request.form['roleEd']
+
+        aRole = [('Название', roleTitle), ('Описание', roleDesc), ('Требуемый стаж', roleExp), ('Требуемые навыки', roleTags), ('Требуемое образование', roleEd)]
+        rolecol.append(aRole)
+        print(aRole)
+
+
+    return render_template('onjobs.html', rolecol=rolecol)

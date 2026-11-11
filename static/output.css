@@ -2070,6 +2070,12 @@
       grid-template-columns: 1fr;
       grid-auto-rows: max-content;
     }
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: calc(0.25rem * 2);
+    }
     .card-title {
       display: flex;
       align-items: center;
@@ -2100,6 +2106,9 @@
   }
   .contents {
     display: contents;
+  }
+  .hidden {
+    display: none;
   }
   @layer daisyui.l1.l2 {
     .btn-square {
@@ -2185,6 +2194,13 @@
   }
   .filter {
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+  @layer daisyui.l1.l2 {
+    .btn-primary {
+      --btn-color: var(--color-primary);
+      --btn-fg: var(--color-primary-content);
+      --btn-soft-bg: initial;
+    }
   }
   @layer daisyui.l1.l2.l3 {
     .aura:has( > .btn,  > .input,  > .select) {

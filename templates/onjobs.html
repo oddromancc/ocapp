@@ -3,14 +3,59 @@
 {% block content %}
 
 
-<button class="btn btn-dash">Добавить вакансию</button>
+<button class="btn btn-dash" popovertarget="modal-1">Добавить вакансию</button>
 
+<div class="modal" id="modal-1" popover>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Новая вакансия</h3>
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend">Выберите требуемые навыки</legend>
+            <form class="filter" method="post" id="aform">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Flask" value="Flask">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Docker" value="Docker">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Django" value="Django">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Git" value="Git">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Dockersrts" value="Dockersrts">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="ARIA322222" value="ARIA322222">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Flask22323" value="Flask22323">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="Docker" value="Docker">
+                <input class="btn" type="checkbox" name="roleTags" aria-label="ARIA" value="ARIA">
+                <input class="btn btn-square" type="reset" value="x">
+            </form>
+        </fieldset>
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend">Введите данные кандидата</legend>
+            <input type="text" class="input" placeholder="Должность" name="roleTitle" form="aform" required>
+            <input type="text" class="input" placeholder="Описание" name="roleDesc" form="aform" required>
+            <select class="select" name="roleExp" form="aform" required>
+                <option disabled selected>Выберите стаж</option>
+                <option>Без опыта</option>
+                <option>От 1 года до 3 лет</option>
+                <option>От 3 до 6 лет</option>
+                <option>Более 6 лет</option>
+            </select>
+            <select class="select" name="roleEd" form="aform" required>
+                <option disabled selected>Выберите образование</option>
+                <option>Среднее</option>
+                <option>Среднее профессиональное</option>
+                <option>Высшее</option>
+            </select>
+            <input class="btn btn-dash mt-4" type="submit" value="Создать вакансию" form="aform">
+        </fieldset>
 
-{% for g in gg %}
+        <div class="modal-action">
+            <button popovertarget="modal-1" popovertargetaction="hide">отменить</button>
+        </div>
+    </div>
+</div>
+
+{% for g in rolecol %}
     <div class="card bg-base-100 shadow-sm">
         <div class="card-body">
-            <h2 class="card-title">HNSRS</h2>
-            <p>THDHJPGTDVKHBDLTHCsrhtnrbsnlurjnhbtlreh</p>
+            {% for q in g %}
+                <h2 class="card-title">{{ q[0] }}</h2>
+                <p>{{ q[1] }}</p>
+            {% endfor %}
         </div>
     </div>
 {% endfor %}
