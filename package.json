@@ -1,0 +1,27 @@
+{
+  "name": "ocapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "npx @tailwindcss/cli -i app.css -o static/output.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oddromancc/ocapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/oddromancc/ocapp/issues"
+  },
+  "homepage": "https://github.com/oddromancc/ocapp#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "daisyui": "^5.7.50",
+    "tailwindcss": "^4.3.5"
+  }
+}

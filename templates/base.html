@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{{ url_for('static', filename='output.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <div class="navbar bg-base-100 shadow-sm">
+                <div class="flex-1">
+                    <a class="btn btn-ghost text-xl">Ocapp</a>
+                </div>
+                <div class="flex-none">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a>Вход</a></li>
+                        <li>
+                            <details>
+                                <summary>Страницы</summary>
+                                <ul class="bg-base-100 rounded-t-none p-2">
+                                    <li><a href="{{ url_for('onhome') }}">Резюме</a></li>
+                                    <li><a href="{{ url_for('onjobs') }}">Вакансии</a></li>
+                                </ul>
+                            </details>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+</html>
