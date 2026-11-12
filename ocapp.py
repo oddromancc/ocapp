@@ -1,9 +1,11 @@
 from flask import Flask, render_template, g, current_app, flash, request, redirect, url_for, send_file, session
+import ast
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
 
 rolecol = []
+rolecolD = []
 rescol = []
 
 @app.route('/', methods=('GET', 'POST'))
@@ -24,8 +26,19 @@ def onhome():
             print(aRes)
 
         if 'resExp1' in request.form:
-            pass
-        
+            resTags1 = ast.literal_eval(request.form['resTags1'])
+
+            for role in rolecol:
+                roleTags = role[3][1]
+                for s in roleTags:
+                    if s not in resTags1:
+                        print('Not fit for the job')
+                        break
+                else:
+                    rolecolD.append(role)
+                    return url_for('onchoices', rolecolD=rolecolD)
+                    
+
     return render_template('onhome.html', rescol=rescol)
 
 @app.route('/jobs', methods=('GET', 'POST'))
@@ -46,3 +59,8 @@ def onjobs():
 
 
     return render_template('onjobs.html', rolecol=rolecol)
+
+@app.route('/choices', methods=('GET', 'POST'))
+def onchoices():
+    print(rolecolD)
+    return render_template('onchoices.html')
