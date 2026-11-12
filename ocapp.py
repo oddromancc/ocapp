@@ -30,13 +30,16 @@ def onhome():
 
             for role in rolecol:
                 roleTags = role[3][1]
+                roleEd = role[4][1]
+                if roleEd != resEd:
+                    continue
                 for s in roleTags:
                     if s not in resTags1:
                         print('Not fit for the job')
                         break
                 else:
                     rolecolD.append(role)
-                    return url_for('onchoices', rolecolD=rolecolD)
+                    return redirect(url_for('onchoices'))
                     
 
     return render_template('onhome.html', rescol=rescol)
@@ -62,5 +65,5 @@ def onjobs():
 
 @app.route('/choices', methods=('GET', 'POST'))
 def onchoices():
-    print(rolecolD)
+    print('cho', rolecolD)
     return render_template('onchoices.html')
