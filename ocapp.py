@@ -60,7 +60,6 @@ def onjobs():
         rolecol.append(aRole)
         print(aRole)
 
-
     return render_template('onjobs.html', rolecol=rolecol)
 
 @app.route('/choices', methods=('GET', 'POST'))
