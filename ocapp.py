@@ -27,11 +27,13 @@ def onhome():
 
         if 'resExp1' in request.form:
             resTags1 = ast.literal_eval(request.form['resTags1'])
+            resEd1 = request.form['resEd1']
 
             for role in rolecol:
                 roleTags = role[3][1]
                 roleEd = role[4][1]
-                if roleEd != resEd:
+                if roleEd != resEd1:
+                    print('llllll')
                     continue
                 for s in roleTags:
                     if s not in resTags1:
@@ -39,7 +41,7 @@ def onhome():
                         break
                 else:
                     rolecolD.append(role)
-                    return redirect(url_for('onchoices'))
+            return redirect(url_for('onchoices'))
                     
 
     return render_template('onhome.html', rescol=rescol)
