@@ -1,5 +1,7 @@
 # ocapp
 
+Подбор вакансий по резюме 
+
 ## Инструкция по установке
 
 0. Клонируйте репозиторий: `git clone https://github.com/oddromancc/ocapp.git`
