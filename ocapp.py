@@ -7,12 +7,9 @@ app.config['SECRET_KEY'] = 'key'
 
 conn = sqlite3.connect('ocapp.db', check_same_thread=False)
 sqlc = conn.cursor()
-sqlc.execute("""
-    CREATE TABLE IF NOT EXISTS resumes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL
-    )
-""")
+with open('schema.sql', 'r') as file:
+    schema = file.read()
+sqlc.executescript(schema)
 conn.commit()
 
 sqlc.execute('SELECT * FROM resumes')
