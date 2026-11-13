@@ -12,7 +12,7 @@ with open('schema.sql', 'r') as file:
 sqlc.executescript(schema)
 conn.commit()
 
-sqlc.execute('SELECT * FROM resumes')
+sqlc.execute('SELECT * FROM rescol')
 prong = sqlc.fetchall()
 for p in prong:
     print(p)
@@ -34,10 +34,13 @@ def onhome():
             resExp = request.form['resExp']
             resEd = request.form['resEd']
             resComp = request.form['resComp']
+            print(resComp)
 
             aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Минимальная желаемая зарплата', resComp)]
             rescol.append(aRes)
             print(aRes)
+            sqlc.execute('INSERT INTO rescol (title) VALUES (?)', (resTitle,))
+            conn.commit()
 
         if 'resExp1' in request.form:
             resTags1 = ast.literal_eval(request.form['resTags1'])
