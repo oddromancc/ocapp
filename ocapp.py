@@ -50,7 +50,7 @@ def onhome():
             for role in rolecol:
                 roleTags = role[3][1]
                 roleEd = role[4][1]
-                roleComp = role[5][1]
+                roleComp = int(role[5][1])
                 if roleComp < resComp1 or roleEd != resEd1:
                     continue
                 for s in roleTags:
