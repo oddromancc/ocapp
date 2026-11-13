@@ -8,7 +8,7 @@
 
 ## Инструкция по установке
 
-0. Клонируйте репозиторий: `git clone https://github.com/oddromancc/ocapp.git && CD ocapp`
+0. Клонируйте репозиторий: `git clone https://github.com/oddromancc/ocapp.git && cd ocapp`
 1. Создайте виртуальное пространство: `python -m venv .venv`
 2. Установка модулей `pip install -r requirements.txt`
 3. Создайте проект: `npm init -y`
