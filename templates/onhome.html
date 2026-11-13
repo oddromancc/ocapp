@@ -39,7 +39,8 @@
                 <option>Среднее профессиональное</option>
                 <option>Высшее</option>
             </select>
-            
+            <input type="number" class="input" name="resComp" placeholder="Введите минимальную желаемую зарплату" required>
+
             <input class="btn btn-dash mt-4" type="submit" value="Создать резюме" form="aform">
         </fieldset>
 
@@ -61,6 +62,7 @@
                     <input type="hidden" name="resExp1" value="{{ g[2][1] }}">
                     <input type="hidden" name="resTags1" value="{{ g[3][1] }}">
                     <input type="hidden" name="resEd1" value="{{ g[4][1] }}">
+                    <input type="hidden" name="resComp1" value="{{ g[5][1] }}">
                     <button class="btn btn-primary mt-4">Подобрать вакансию</button>
                 </form>
             </div>
