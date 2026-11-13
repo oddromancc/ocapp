@@ -14,4 +14,4 @@
 3. Создайте проект: `npm init -y`
 4. Установите tailwind и daisyui: `npm install tailwindcss@latest @tailwindcss/cli@latest daisyui@latest`
 5. Создайте .css: `npm run build:css`
-6. Запустите: `flask --app .\ocapp.py`
+6. Запустите: `flask --app .\ocapp.py run`
