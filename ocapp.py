@@ -39,7 +39,7 @@ def onhome():
             aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Минимальная желаемая зарплата', resComp)]
             rescol.append(aRes)
             print(aRes)
-            sqlc.execute('INSERT INTO rescol (title) VALUES (?)', (resTitle,))
+            sqlc.execute('INSERT INTO rescol (title, desc, exp) VALUES (?)', (resTitle, resDesc, resExp))
             conn.commit()
 
         if 'resExp1' in request.form:
