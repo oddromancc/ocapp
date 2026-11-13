@@ -20,8 +20,9 @@ def onhome():
             resDesc = request.form['resDesc']
             resExp = request.form['resExp']
             resEd = request.form['resEd']
+            resComp = request.form['resComp']
 
-            aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd)]
+            aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Зарплата', resComp)]
             rescol.append(aRes)
             print(aRes)
 
