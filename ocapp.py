@@ -1,8 +1,24 @@
 from flask import Flask, render_template, current_app, flash, request, redirect, url_for
 import ast
+import sqlite3
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
+
+conn = sqlite3.connect('ocapp.db', check_same_thread=False)
+sqlc = conn.cursor()
+sqlc.execute("""
+    CREATE TABLE IF NOT EXISTS resumes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL
+    )
+""")
+conn.commit()
+
+sqlc.execute('SELECT * FROM resumes')
+prong = sqlc.fetchall()
+for p in prong:
+    print(p)
 
 rolecol = []
 rolecolD = []
