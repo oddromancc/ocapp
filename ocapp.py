@@ -43,16 +43,12 @@ def onhome():
     if request.method == 'POST':
         if 'resExp' in request.form:
             resTags = request.form.getlist('resTags')
-            print(type(resTags))
-
             resTitle = request.form['resTitle']
             resDesc = request.form['resDesc']
             resExp = request.form['resExp']
             resEd = request.form['resEd']
             resComp = request.form['resComp']
-            print(resComp)
 
-            # aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Минимальная желаемая зарплата', resComp)]
             sor.execute('INSERT INTO rescol (title, desc, exp, tags, ed, comp) VALUES (?, ?, ?, ?, ?, ?)', (resTitle, resDesc, resExp, str(resTags), resEd, resComp))
             conn.commit()
             return redirect(url_for('onhome'))
@@ -86,7 +82,7 @@ def onjobs():
     prong = sor.fetchall()
 
     for p in prong:
-        aRole = ['placeholder', ['Название', 1], ['Описание', 1], ['Требуемый стаж', 1], ['Требуемые навыки', 1], ['Требуемое образование', 1], ['Минимальная зарплата', 1]]
+        aRole = ['placeholder', ['Название', 1], ['Описание', 1], ['Требуемый стаж', 1], ['Требуемые навыки', 1], ['Требуемое образование', 1], ['Предлагаемая зарплата', 1]]
         ind = 0
         forapp = []
         for t in p:
@@ -100,14 +96,12 @@ def onjobs():
 
     if request.method == 'POST':
         roleTags = request.form.getlist('roleTags')
-
         roleTitle = request.form['roleTitle']
         roleDesc = request.form['roleDesc']
         roleExp = request.form['roleExp']
         roleEd = request.form['roleEd']
         roleComp = request.form['roleComp']
 
-        # aRole = [('Название', roleTitle), ('Описание', roleDesc), ('Требуемый стаж', roleExp), ('Требуемые навыки', roleTags), ('Требуемое образование', roleEd), ('Минимальная зарплата', roleComp)]
         sor.execute('INSERT INTO rolecol (title, desc, exp, tags, ed, comp) VALUES (?, ?, ?, ?, ?, ?)', (roleTitle, roleDesc, roleExp, str(roleTags), roleEd, roleComp))
         conn.commit()
         return redirect(url_for('onjobs'))
