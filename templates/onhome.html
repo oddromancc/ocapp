@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<a class="btn btn-dash" href="{{ url_for('onhome', page=page+1) }}">Следующая страница</a>
-
 <button class="btn btn-dash" popovertarget="modal-1">Добавить резюме</button>
 
 <div class="modal" id="modal-1" popover>
@@ -71,5 +69,13 @@
         </div>
     </div>
 {% endfor %}
+
+{% if page > 1 %}
+<a class="btn btn-dash" href="{{ url_for('onhome', page=page-1) }}"><</a>
+{% endif %}
+
+{% if page < pages %}
+<a class="btn btn-dash" href="{{ url_for('onhome', page=page+1) }}">></a>
+{% endif %}
 
 {% endblock %}
