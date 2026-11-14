@@ -6,20 +6,33 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
 
 conn = sqlite3.connect('ocapp.db', check_same_thread=False)
-sqlc = conn.cursor()
+sor = conn.cursor()
 with open('schema.sql', 'r') as file:
     schema = file.read()
-sqlc.executescript(schema)
+sor.executescript(schema)
 conn.commit()
 
-sqlc.execute('SELECT * FROM rescol')
-prong = sqlc.fetchall()
-for p in prong:
-    print(p)
+sor.execute('SELECT * FROM rescol')
+prong = sor.fetchall()
+print(prong)
 
 rolecol = []
 rolecolD = []
 rescol = []
+
+for p in prong:
+    aRes = ['placeholder', ['Название', 1], ['Описание', 1], ['Стаж', 1], ['Навыки', 1], ['Образование', 1], ['Минимальная желаемая зарплата', 1]]
+    ind = 0
+    forapp = []
+    print(p)
+    for t in p:
+        if ind == 0:
+            ind += 1
+            continue
+        li = [aRes[ind][0], t]
+        forapp.append(li)
+        ind += 1
+    rescol.append(forapp)
 
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
@@ -27,7 +40,7 @@ def onhome():
     if request.method == 'POST':
         if 'resExp' in request.form:
             resTags = request.form.getlist('resTags')
-            print(resTags)
+            print(type(resTags))
 
             resTitle = request.form['resTitle']
             resDesc = request.form['resDesc']
@@ -39,7 +52,7 @@ def onhome():
             aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Минимальная желаемая зарплата', resComp)]
             rescol.append(aRes)
             print(aRes)
-            sqlc.execute('INSERT INTO rescol (title, desc, exp) VALUES (?, ?, ?)', (resTitle, resDesc, resExp))
+            sor.execute('INSERT INTO rescol (title, desc, exp, tags, ed, comp) VALUES (?, ?, ?, ?, ?, ?)', (resTitle, resDesc, resExp, str(resTags), resEd, resComp))
             conn.commit()
 
         if 'resExp1' in request.form:
