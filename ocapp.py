@@ -40,6 +40,14 @@ def onhome():
             ind += 1
         rescol.append(forapp)
 
+    
+    perPage = 2
+    page = request.args.get("page", 1, type=int)
+    # pages = count // perPage
+    offset = (page - 1) * perPage
+
+    
+
     if request.method == 'POST':
         if 'resExp' in request.form:
             resTags = request.form.getlist('resTags')
@@ -71,7 +79,7 @@ def onhome():
                     rolecolD.append(role)
             return redirect(url_for('onchoices'))
                     
-    return render_template('onhome.html', rescol=rescol)
+    return render_template('onhome.html', rescol=rescol, page=page)
 
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
