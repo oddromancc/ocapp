@@ -14,28 +14,29 @@ conn.commit()
 
 sor.execute('SELECT * FROM rescol')
 prong = sor.fetchall()
-print(prong)
 
 rolecol = []
 rolecolD = []
-rescol = []
-
-for p in prong:
-    aRes = ['placeholder', ['Название', 1], ['Описание', 1], ['Стаж', 1], ['Навыки', 1], ['Образование', 1], ['Минимальная желаемая зарплата', 1]]
-    ind = 0
-    forapp = []
-    print(p)
-    for t in p:
-        if ind == 0:
-            ind += 1
-            continue
-        li = [aRes[ind][0], t]
-        forapp.append(li)
-        ind += 1
-    rescol.append(forapp)
 
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
+
+    rescol = []
+    sor.execute('SELECT * FROM rescol')
+    prong = sor.fetchall()
+
+    for p in prong:
+        aRes = ['placeholder', ['Название', 1], ['Описание', 1], ['Стаж', 1], ['Навыки', 1], ['Образование', 1], ['Минимальная желаемая зарплата', 1]]
+        ind = 0
+        forapp = []
+        for t in p:
+            if ind == 0:
+                ind += 1
+                continue
+            li = [aRes[ind][0], t]
+            forapp.append(li)
+            ind += 1
+        rescol.append(forapp)
 
     if request.method == 'POST':
         if 'resExp' in request.form:
