@@ -15,12 +15,14 @@ conn.commit()
 sor.execute('SELECT * FROM rescol')
 prong = sor.fetchall()
 
+rescol = []
 rolecol = []
 rolecolD = []
 
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
 
+    global rescol
     rescol = []
     sor.execute('SELECT * FROM rescol')
     prong = sor.fetchall()
@@ -50,11 +52,10 @@ def onhome():
             resComp = request.form['resComp']
             print(resComp)
 
-            aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Минимальная желаемая зарплата', resComp)]
-            rescol.append(aRes)
-            print(aRes)
+            # aRes = [('Название', resTitle), ('Описание', resDesc), ('Стаж', resExp), ('Навыки', resTags), ('Образование', resEd), ('Минимальная желаемая зарплата', resComp)]
             sor.execute('INSERT INTO rescol (title, desc, exp, tags, ed, comp) VALUES (?, ?, ?, ?, ?, ?)', (resTitle, resDesc, resExp, str(resTags), resEd, resComp))
             conn.commit()
+            return redirect(url_for('onhome'))
 
         if 'resExp1' in request.form:
             resTags1 = ast.literal_eval(request.form['resTags1'])
@@ -79,6 +80,24 @@ def onhome():
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
 
+    global rolecol
+    rolecol = []
+    sor.execute('SELECT * FROM rolecol')
+    prong = sor.fetchall()
+
+    for p in prong:
+        aRole = ['placeholder', ['Название', 1], ['Описание', 1], ['Требуемый стаж', 1], ['Требуемые навыки', 1], ['Требуемое образование', 1], ['Минимальная зарплата', 1]]
+        ind = 0
+        forapp = []
+        for t in p:
+            if ind == 0:
+                ind += 1
+                continue
+            li = [aRole[ind][0], t]
+            forapp.append(li)
+            ind += 1
+        rolecol.append(forapp)
+
     if request.method == 'POST':
         roleTags = request.form.getlist('roleTags')
 
@@ -88,9 +107,10 @@ def onjobs():
         roleEd = request.form['roleEd']
         roleComp = request.form['roleComp']
 
-        aRole = [('Название', roleTitle), ('Описание', roleDesc), ('Требуемый стаж', roleExp), ('Требуемые навыки', roleTags), ('Требуемое образование', roleEd), ('Минимальная зарплата', roleComp)]
-        rolecol.append(aRole)
-        print(aRole)
+        # aRole = [('Название', roleTitle), ('Описание', roleDesc), ('Требуемый стаж', roleExp), ('Требуемые навыки', roleTags), ('Требуемое образование', roleEd), ('Минимальная зарплата', roleComp)]
+        sor.execute('INSERT INTO rolecol (title, desc, exp, tags, ed, comp) VALUES (?, ?, ?, ?, ?, ?)', (roleTitle, roleDesc, roleExp, str(roleTags), roleEd, roleComp))
+        conn.commit()
+        return redirect(url_for('onjobs'))
 
     return render_template('onjobs.html', rolecol=rolecol)
 
