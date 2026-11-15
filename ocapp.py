@@ -19,9 +19,7 @@ rescol = []
 rolecol = []
 rolecolD = []
 
-@app.route('/', methods=('GET', 'POST'))
-def onhome():
-
+def readDB():
     global rescol
     rescol = []
     sor.execute('SELECT * FROM rescol')
@@ -39,6 +37,32 @@ def onhome():
             forapp.append(li)
             ind += 1
         rescol.append(forapp)
+
+    global rolecol
+    rolecol = []
+    sor.execute('SELECT * FROM rolecol')
+    prong = sor.fetchall()
+
+    for p in prong:
+        aRole = ['placeholder', ['Название', 1], ['Описание', 1], ['Требуемый стаж', 1], ['Требуемые навыки', 1], ['Требуемое образование', 1], ['Предлагаемая зарплата', 1]]
+        ind = 0
+        forapp = []
+        for t in p:
+            if ind == 0:
+                ind += 1
+                continue
+            li = [aRole[ind][0], t]
+            forapp.append(li)
+            ind += 1
+        rolecol.append(forapp)
+
+    
+@app.route('/', methods=('GET', 'POST'))
+def onhome():
+
+    readDB()
+    global rescol
+    global rolecol
     
     perPage = 2
     page = request.args.get("page", 1, type=int)
@@ -67,6 +91,7 @@ def onhome():
             resComp1 = int(request.form['resComp1'])
 
             for role in rolecol:
+                print(role)
                 roleTags = role[3][1]
                 roleEd = role[4][1]
                 roleComp = int(role[5][1])
@@ -84,23 +109,17 @@ def onhome():
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
 
+    readDB()
+    global rescol
     global rolecol
-    rolecol = []
-    sor.execute('SELECT * FROM rolecol')
-    prong = sor.fetchall()
 
-    for p in prong:
-        aRole = ['placeholder', ['Название', 1], ['Описание', 1], ['Требуемый стаж', 1], ['Требуемые навыки', 1], ['Требуемое образование', 1], ['Предлагаемая зарплата', 1]]
-        ind = 0
-        forapp = []
-        for t in p:
-            if ind == 0:
-                ind += 1
-                continue
-            li = [aRole[ind][0], t]
-            forapp.append(li)
-            ind += 1
-        rolecol.append(forapp)
+    perPage = 2
+    page = request.args.get("page", 1, type=int)
+    pages = len(rolecol) // perPage
+    if len(rolecol) % perPage > 0:
+        pages += 1
+    offset = (page - 1) * perPage
+    rolecolSliced = rolecol[offset:offset+perPage]
 
     if request.method == 'POST':
         roleTags = request.form.getlist('roleTags')
@@ -114,7 +133,7 @@ def onjobs():
         conn.commit()
         return redirect(url_for('onjobs'))
 
-    return render_template('onjobs.html', rolecol=rolecol)
+    return render_template('onjobs.html', rolecolSliced=rolecolSliced, page=page, pages=pages)
 
 @app.route('/choices', methods=('GET', 'POST'))
 def onchoices():

@@ -59,7 +59,7 @@
     </div>
 </div>
 
-{% for g in rolecol %}
+{% for g in rolecolSliced %}
     <div class="card bg-base-100 shadow-sm">
         <div class="card-body">
             {% for q in g %}
@@ -70,5 +70,13 @@
     </div>
 {% endfor %}
 
+
+{% if page > 1 %}
+<a class="btn btn-dash" href="{{ url_for('onjobs', page=page-1) }}"><</a>
+{% endif %}
+
+{% if page < pages %}
+<a class="btn btn-dash" href="{{ url_for('onjobs', page=page+1) }}">></a>
+{% endif %}
 
 {% endblock %}
