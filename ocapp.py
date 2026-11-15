@@ -55,6 +55,16 @@ def readDB():
             forapp.append(li)
             ind += 1
         rolecol.append(forapp)
+
+def sliceCol(aCol, perPage):
+    page = request.args.get("page", 1, type=int)
+    pages = len(aCol) // perPage
+    if len(aCol) % perPage > 0:
+        pages += 1
+    offset = (page - 1) * perPage
+    aColSliced = aCol[offset:offset+perPage]
+    return (page, pages, aColSliced)
+
     
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
@@ -63,14 +73,9 @@ def onhome():
     global rescol
     global rolecol
     global rolecolD
-    
-    perPage = 2
-    page = request.args.get("page", 1, type=int)
-    pages = len(rescol) // perPage
-    if len(rescol) % perPage > 0:
-        pages += 1
-    offset = (page - 1) * perPage
-    rescolSliced = rescol[offset:offset+perPage]
+
+    sl = sliceCol(rescol, 2)
+    page, pages, rescolSliced = sl[0], sl[1], sl[2]
     
     if request.method == 'POST':
         if 'resExp' in request.form:
@@ -91,38 +96,28 @@ def onhome():
             resComp1 = int(request.form['resComp1'])
 
             for role in rolecol:
-                print(role)
                 roleTags = ast.literal_eval(role[3][1])
                 roleEd = role[4][1]
                 roleComp = int(role[5][1])
                 if roleComp < resComp1 or roleEd != resEd1:
-                    print('con')
                     continue
                 for s in roleTags:
                     if s not in resTags1:
-                        print(s)
                         break
                 else:
-                    print('appending')
                     rolecolD.append(role)
             return redirect(url_for('onchoices'))
                     
-    return render_template('onhome.html', page=page, rescolSliced=rescolSliced, pages=pages)
+    return render_template('onhome.html', rescolSliced=rescolSliced, page=page pages=pages)
 
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
 
     readDB()
-    global rescol
     global rolecol
 
-    perPage = 2
-    page = request.args.get("page", 1, type=int)
-    pages = len(rolecol) // perPage
-    if len(rolecol) % perPage > 0:
-        pages += 1
-    offset = (page - 1) * perPage
-    rolecolSliced = rolecol[offset:offset+perPage]
+    sl = sliceCol(rolecol, 2)
+    page, pages, rolecolSliced = sl[0], sl[1], sl[2]
 
     if request.method == 'POST':
         roleTags = request.form.getlist('roleTags')
@@ -142,13 +137,7 @@ def onjobs():
 def onchoices():
     global rolecolD
 
-    perPage = 2
-    page = request.args.get("page", 1, type=int)
-    pages = len(rolecolD) // perPage
-    if len(rolecolD) % perPage > 0:
-        pages += 1
-    offset = (page - 1) * perPage
-    rolecolDSliced = rolecolD[offset:offset+perPage]
+    sl = sliceCol(rolecolD, 2)
+    page, pages, rolecolDSliced = sl[0], sl[1], sl[2]
 
-    print('cho', rolecolD)
     return render_template('onchoices.html', rolecolDSliced=rolecolDSliced, page=page, pages=pages)
