@@ -62,10 +62,8 @@ def sliceCol(aCol, perPage):
     aColSliced = aCol[offset:offset+perPage]
     return (page, pages, aColSliced)
 
-    
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
-
     readDB()
     global rescol
     global rolecol
@@ -109,7 +107,6 @@ def onhome():
 
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
-
     readDB()
     global rolecol
 
