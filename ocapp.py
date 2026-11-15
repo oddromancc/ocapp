@@ -12,14 +12,11 @@ with open('schema.sql', 'r') as file:
 sor.executescript(schema)
 conn.commit()
 
-rescol = []
-rolecol = []
-rolecolD = []
+rescol, rolecol, rolecolD = [], [], []
 
 def readDB():
     global rescol, rolecol
-    rescol = []
-    rolecol = []
+    rescol, rolecol = [], []
 
     sor.execute('SELECT * FROM rescol')
     prong = sor.fetchall()
@@ -66,6 +63,7 @@ def sliceCol(aCol, perPage):
 def onhome():
     readDB()
     global rescol, rolecol, rolecolD
+    rolecolD = []
 
     sl = sliceCol(rescol, 2)
     page, pages, rescolSliced = sl[0], sl[1], sl[2]
