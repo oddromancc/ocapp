@@ -17,8 +17,10 @@ rolecol = []
 rolecolD = []
 
 def readDB():
-    global rescol
+    global rescol, rolecol
     rescol = []
+    rolecol = []
+
     sor.execute('SELECT * FROM rescol')
     prong = sor.fetchall()
 
@@ -35,8 +37,6 @@ def readDB():
             ind += 1
         rescol.append(forapp)
 
-    global rolecol
-    rolecol = []
     sor.execute('SELECT * FROM rolecol')
     prong = sor.fetchall()
 
@@ -65,9 +65,7 @@ def sliceCol(aCol, perPage):
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
     readDB()
-    global rescol
-    global rolecol
-    global rolecolD
+    global rescol, rolecol, rolecolD
 
     sl = sliceCol(rescol, 2)
     page, pages, rescolSliced = sl[0], sl[1], sl[2]
