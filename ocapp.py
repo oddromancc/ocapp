@@ -63,6 +63,7 @@ def onhome():
     readDB()
     global rescol
     global rolecol
+    global rolecolD
     
     perPage = 2
     page = request.args.get("page", 1, type=int)
@@ -92,15 +93,18 @@ def onhome():
 
             for role in rolecol:
                 print(role)
-                roleTags = role[3][1]
+                roleTags = ast.literal_eval(role[3][1])
                 roleEd = role[4][1]
                 roleComp = int(role[5][1])
                 if roleComp < resComp1 or roleEd != resEd1:
+                    print('con')
                     continue
                 for s in roleTags:
                     if s not in resTags1:
+                        print(s)
                         break
                 else:
+                    print('appending')
                     rolecolD.append(role)
             return redirect(url_for('onchoices'))
                     
@@ -137,5 +141,6 @@ def onjobs():
 
 @app.route('/choices', methods=('GET', 'POST'))
 def onchoices():
+    global rolecolD
     print('cho', rolecolD)
     return render_template('onchoices.html')
