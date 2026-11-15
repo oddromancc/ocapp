@@ -12,9 +12,6 @@ with open('schema.sql', 'r') as file:
 sor.executescript(schema)
 conn.commit()
 
-sor.execute('SELECT * FROM rescol')
-prong = sor.fetchall()
-
 rescol = []
 rolecol = []
 rolecolD = []
@@ -108,7 +105,7 @@ def onhome():
                     rolecolD.append(role)
             return redirect(url_for('onchoices'))
                     
-    return render_template('onhome.html', rescolSliced=rescolSliced, page=page pages=pages)
+    return render_template('onhome.html', rescolSliced=rescolSliced, page=page, pages=pages)
 
 @app.route('/jobs', methods=('GET', 'POST'))
 def onjobs():
