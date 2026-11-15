@@ -55,7 +55,6 @@ def readDB():
             forapp.append(li)
             ind += 1
         rolecol.append(forapp)
-
     
 @app.route('/', methods=('GET', 'POST'))
 def onhome():
@@ -142,5 +141,14 @@ def onjobs():
 @app.route('/choices', methods=('GET', 'POST'))
 def onchoices():
     global rolecolD
+
+    perPage = 2
+    page = request.args.get("page", 1, type=int)
+    pages = len(rolecolD) // perPage
+    if len(rolecolD) % perPage > 0:
+        pages += 1
+    offset = (page - 1) * perPage
+    rolecolDSliced = rolecolD[offset:offset+perPage]
+
     print('cho', rolecolD)
-    return render_template('onchoices.html')
+    return render_template('onchoices.html', rolecolDSliced=rolecolDSliced, page=page, pages=pages)

@@ -5,5 +5,24 @@
 {% block content %}
 
 
+{% for g in rolecolDSliced %}
+    <div class="card bg-base-100 shadow-sm">
+        <div class="card-body">
+            {% for q in g %}
+                <h2 class="card-title">{{ q[0] }}</h2>
+                <p>{{ q[1] }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+{% if page > 1 %}
+<a class="btn btn-dash" href="{{ url_for('onchoices', page=page-1) }}"><</a>
+{% endif %}
+
+{% if page < pages %}
+<a class="btn btn-dash" href="{{ url_for('onchoices', page=page+1) }}">></a>
+{% endif %}
+
 
 {% endblock %}
