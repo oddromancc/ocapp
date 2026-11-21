@@ -2,9 +2,11 @@ from flask import Flask, render_template, current_app, flash, request, redirect,
 import ast
 import sqlite3
 
+# Создаётся сам объект Flask / Creating a Flask object
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
 
+# Создание (если нет файла) базы данных и подключение к ней
 conn = sqlite3.connect('ocapp.db', check_same_thread=False)
 sor = conn.cursor()
 with open('schema.sql', 'r') as file:
@@ -12,15 +14,19 @@ with open('schema.sql', 'r') as file:
 sor.executescript(schema)
 conn.commit()
 
+# Листы для хранения всех резюме, всех вакансий и всех подобранных вакансий
 rescol, rolecol, rolecolD = [], [], []
 
+# Функция, заполняющая эти листы данными из базы данных
 def readDB():
     global rescol, rolecol
     rescol, rolecol = [], []
 
+    # Делаем SQL-запрос на все ряды из таблицы rescol. В ней хранятся резюме
     sor.execute('SELECT * FROM rescol')
     prong = sor.fetchall()
 
+    # В каждом ряду игнорируем нулевую по индексу колонку id, потом создаём лист с названием колонки и её значением, добавляем этот лист в лист forapp
     for p in prong:
         aRes = ['placeholder', ['Название', 1], ['Описание', 1], ['Стаж', 1], ['Навыки', 1], ['Образование', 1], ['Минимальная желаемая зарплата', 1]]
         ind = 0
@@ -50,6 +56,7 @@ def readDB():
             ind += 1
         rolecol.append(forapp)
 
+# Функция для извлечения части данных из листа, чтобы разделить все данные на несколько страниц
 def sliceCol(aCol, perPage):
     page = request.args.get("page", 1, type=int)
     pages = len(aCol) // perPage
