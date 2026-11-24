@@ -83,6 +83,7 @@ def onhome():
             resExp = request.form['resExp']
             resEd = request.form['resEd']
             resComp = request.form['resComp']
+            print(type(resTags))
 
             sor.execute('INSERT INTO rescol (title, desc, exp, tags, ed, comp) VALUES (?, ?, ?, ?, ?, ?)', (resTitle, resDesc, resExp, str(resTags), resEd, resComp))
             conn.commit()
