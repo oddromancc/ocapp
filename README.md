@@ -9,12 +9,39 @@
 
 ## Инструкция по установке
 
-0. Клонируйте репозиторий:
-`git clone https://github.com/oddromancc/ocapp.git`
-`cd ocapp`
-2. Создайте и активируйте виртуальное пространство:`python -m venv .venv` `.\.venv\Scripts\activate`
-3. Установка модулей `pip install -r requirements.txt`
-4. Создайте проект: `npm init -y`
-5. Установите tailwind и daisyui: `npm install tailwindcss@latest @tailwindcss/cli@latest daisyui@latest`
-6. Создайте .css: `npm run build:css`
-7. Запустите: `flask --app .\ocapp.py run`
+Клонируйте репозиторий:
+```
+git clone https://github.com/oddromancc/ocapp.git
+```
+Перейдите в папку ocapp:
+```
+cd ocapp
+```
+Создайте виртуальное пространство:
+```
+python -m venv .venv
+```
+Активируйте его:
+```
+.\.venv\Scripts\activate
+```
+Установка нужные модули:
+```
+pip install -r requirements.txt
+```
+Создайте проект npm:
+```
+npm init -y
+```
+Установите tailwind и daisyui:
+```
+npm install tailwindcss@latest @tailwindcss/cli@latest daisyui@latest
+```
+Создайте .css:
+```
+npm run build:css
+```
+Запустите:
+```
+flask --app .\ocapp.py run
+```
