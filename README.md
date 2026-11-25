@@ -25,7 +25,7 @@ python -m venv .venv
 ```
 .\.venv\Scripts\activate
 ```
-Установка нужные модули:
+Установка нужные модулей:
 ```
 pip install -r requirements.txt
 ```
