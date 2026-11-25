@@ -1,6 +1,6 @@
 # ocapp
 
-Подбор вакансий по резюме
+Ве
 
 ## Функционал на данный момент 
 - Создание резюме и вакансий
@@ -9,8 +9,10 @@
 
 ## Инструкция по установке
 
-0. Клонируйте репозиторий: `git clone https://github.com/oddromancc/ocapp.git` `cd ocapp`
-1. Создайте и активируйте виртуальное пространство:`python -m venv .venv` `.\.venv\Scripts\activate`
+0. Клонируйте репозиторий:
+`git clone https://github.com/oddromancc/ocapp.git`
+`cd ocapp`
+2. Создайте и активируйте виртуальное пространство:`python -m venv .venv` `.\.venv\Scripts\activate`
 3. Установка модулей `pip install -r requirements.txt`
 4. Создайте проект: `npm init -y`
 5. Установите tailwind и daisyui: `npm install tailwindcss@latest @tailwindcss/cli@latest daisyui@latest`
