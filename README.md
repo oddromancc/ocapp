@@ -25,7 +25,7 @@ python -m venv .venv
 ```
 .\.venv\Scripts\activate
 ```
-Установка нужные модулей:
+Установка нужных модулей:
 ```
 pip install -r requirements.txt
 ```
@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 npm init -y
 ```
-Установите tailwind и daisyui:
+Установите TailwindCSS и DaisyUI:
 ```
 npm install tailwindcss@latest @tailwindcss/cli@latest daisyui@latest
 ```
