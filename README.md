@@ -9,7 +9,7 @@
 
 ## Руководство пользователя
 
-[https://github.com/oddromancc/ocappdocs](https://oddromancc.github.io/ocappdocs/)
+https://oddromancc.github.io/ocappdocs/
 
 ## Инструкция по установке
 
